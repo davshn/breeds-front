@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import BreedCard from "./BreedCardStyled";
 import {getTemps,paginate} from "../const/getData";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {button,shadow,buttext} from "../const/theme";
 
 //Contenedor de las tarjetas
@@ -44,12 +44,13 @@ export default function CardsCont() {
           
     const breeds= useSelector(state=>state.breedsReducer.breeds);         //Trae las razas
     const [page,setPage]=useState(1);
+    useEffect(()=>setPage(1),[breeds]);                         //VUelve a la pagina 1 cuando cambia
 
     function handleBackBut(e){                                  //Si esta en la primera pagina no retrocede mas
         if (page>1){setPage(page-1)};
     }
 
-    function handleFordBut(e){                                  //Si lega a la ultima pagina no avanza mas 
+    function handleFordBut(e){                                  //Si llega a la ultima pagina no avanza mas 
         if(page<Math.ceil(breeds.length/8)){setPage(page+1);}
     }
 
